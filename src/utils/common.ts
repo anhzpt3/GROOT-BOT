@@ -32,7 +32,7 @@ export const jsonStringify = (value: any) => {
 
 export const removeNumberFromEndOfString = (str: string) => {
   return str.replace(/\d+$/, '');
-}
+};
 
 export const mapName = (memberId: string) => {
   const map = {
@@ -45,12 +45,11 @@ export const mapName = (memberId: string) => {
     '872830927099797584': 'Thành có vợ',
     '424836030168956929': 'thành wibu',
     '602506286126596100': ' nê du quy',
-
-  }
+  };
 
   if (map[memberId]) {
     return map[memberId];
   }
 
-  return undefined
-}
+  return undefined;
+};
