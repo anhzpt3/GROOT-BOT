@@ -36,7 +36,7 @@ export const removeNumberFromEndOfString = (str: string) => {
 
 export const mapName = (memberId: string) => {
   const map = {
-    'hhh': 'Hoàng',
+    '662105091893100575': 'Hoàng',
     '593815497737240586': 'bé Khâu',
     '335633359218671616': 'triết gầy',
     '709347560178974790': 'bạn đã đến với bình nguyên vô tận',
