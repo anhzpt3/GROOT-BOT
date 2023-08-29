@@ -1,21 +1,21 @@
-import { CmdType, getCommands } from ".";
-import { SlashCommandBuilder } from "discord.js";
+import { CmdType, getCommands } from '.';
+import { SlashCommandBuilder } from 'discord.js';
 
 export const Reload: CmdType = {
   data: new SlashCommandBuilder()
-    .setName("reload")
-    .setDescription("Reloads a command.")
+    .setName('reload')
+    .setDescription('Reloads a command.')
     .addStringOption((option) =>
       option
-        .setName("command")
-        .setDescription("The command to reload.")
+        .setName('command')
+        .setDescription('The command to reload.')
         .setRequired(true)
     ),
   execute: async (interaction) => {
     const commands = getCommands();
 
     const commandName = interaction.options
-      .getString("command", true)
+      .getString('command', true)
       .toLowerCase();
     const command = commands.get(commandName);
 

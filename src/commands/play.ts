@@ -1,21 +1,21 @@
-import { CmdType } from ".";
-import { GuildMember, SlashCommandBuilder } from "discord.js";
+import { CmdType } from '.';
+import { GuildMember, SlashCommandBuilder } from 'discord.js';
 import {
   AudioPlayerStatus,
   createAudioResource,
   joinVoiceChannel,
-} from "@discordjs/voice";
-import { createAudioPlayer } from "@discordjs/voice";
+} from '@discordjs/voice';
+import { createAudioPlayer } from '@discordjs/voice';
 // import ytdl from "ytdl-core";
-import play, { SoundCloudStream, YouTubeStream, YouTubeVideo } from "play-dl";
-import { getYouTubeVideoIdFromUrl } from "../utils/common";
+import play, { SoundCloudStream, YouTubeStream, YouTubeVideo } from 'play-dl';
+import { getYouTubeVideoIdFromUrl } from '../utils/common';
 
 export const Play: CmdType = {
   data: new SlashCommandBuilder()
-    .setName("play")
-    .setDescription("Play song!")
+    .setName('play')
+    .setDescription('Play song!')
     .addStringOption((option) =>
-      option.setName("search").setDescription("Youtube link.").setRequired(true)
+      option.setName('search').setDescription('Youtube link.').setRequired(true)
     ),
   execute: async (interaction) => {
     await interaction.deferReply({ ephemeral: true });
@@ -24,14 +24,14 @@ export const Play: CmdType = {
     // const mp3 = "assets/koyoi-mofumofu.mp3";
 
     const guildMember = interaction.member as GuildMember;
-    let searchText = interaction.options.getString("search", true);
+    let searchText = interaction.options.getString('search', true);
 
-    if (searchText.startsWith("https://")) {
+    if (searchText.startsWith('https://')) {
       searchText = getYouTubeVideoIdFromUrl(searchText);
 
       if (!searchText) {
         await interaction.followUp({
-          content: "Không tìm thấy video nào!",
+          content: 'Không tìm thấy video nào!',
           ephemeral: true,
         });
         return;
@@ -41,10 +41,10 @@ export const Play: CmdType = {
     const player = createAudioPlayer();
 
     player.on(AudioPlayerStatus.Playing, () => {
-      console.log("The audio player has started playing!");
+      console.log('The audio player has started playing!');
     });
 
-    player.on("error", (error) => {
+    player.on('error', (error) => {
       console.error(`Player error: ${error.message} with resource`);
       console.log(error);
     });
@@ -63,11 +63,11 @@ export const Play: CmdType = {
       });
       console.log(yt_info[0].title);
       console.log(yt_info[0].durationRaw);
-      console.log("---");
+      console.log('---');
 
       if (yt_info?.length <= 0) {
         await interaction.followUp({
-          content: "Không tìm thấy video nào!",
+          content: 'Không tìm thấy video nào!',
           ephemeral: true,
         });
         return;
@@ -94,7 +94,7 @@ export const Play: CmdType = {
         // setTimeout(() => subscription.unsubscribe(), 10000);
       }
     } catch (error) {
-      console.log("Stream error: ");
+      console.log('Stream error: ');
       console.log(error);
     }
 

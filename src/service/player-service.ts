@@ -1,8 +1,15 @@
-import { createAudioPlayer, createAudioResource, joinVoiceChannel } from "@discordjs/voice";
-import { GuildMember } from "discord.js";
-import { Readable } from "stream";
+import {
+  createAudioPlayer,
+  createAudioResource,
+  joinVoiceChannel,
+} from '@discordjs/voice';
+import { GuildMember } from 'discord.js';
+import { Readable } from 'stream';
 
-export const playResource = (input: Readable | string, guildMember: GuildMember) => {
+export const playResource = (
+  input: Readable | string,
+  guildMember: GuildMember
+) => {
   const player = createAudioPlayer();
 
   const resource = createAudioResource(input);
@@ -16,5 +23,5 @@ export const playResource = (input: Readable | string, guildMember: GuildMember)
   voiceConnection.subscribe(player);
   player.play(resource);
 
-  return player
-}
+  return player;
+};

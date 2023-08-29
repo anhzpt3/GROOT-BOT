@@ -3,29 +3,31 @@ import {
   Collection,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
   SlashCommandBuilder,
-} from "discord.js";
+} from 'discord.js';
 // import { Nyanz } from "./nyanz";
 // import { Ping } from "./ping";
-import { Play } from "./play";
-import { Reload } from "./reload";
-import { TextToSpeech } from "./tts";
-import { DisconnectCommand } from "./disconnect";
-import { ChatGPT } from "./gpt";
+import { Play } from './play';
+import { Reload } from './reload';
+import { TextToSpeech } from './tts';
+import { DisconnectCommand } from './disconnect';
+import { ChatGPT } from './gpt';
 
 export type CmdType = {
   data:
-  | SlashCommandBuilder
-  | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    | SlashCommandBuilder
+    | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
   execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
 };
 
-const listCommand = [Play,
-  // Ping, 
+const listCommand = [
+  Play,
+  // Ping,
   // Nyanz,
   ChatGPT,
   Reload,
   TextToSpeech,
-  DisconnectCommand]; //  
+  DisconnectCommand,
+]; //
 
 let commands = new Collection<string, CmdType>();
 
@@ -40,7 +42,7 @@ export const setCommands = (newCommand: Collection<string, CmdType>) => {
 export const initCommands = () => {
   for (const command of listCommand) {
     // Set a new item in the Collection with the key as the command name and the value as the exported module
-    if ("data" in command && "execute" in command) {
+    if ('data' in command && 'execute' in command) {
       commands.set(command.data.name, command);
     } else {
       console.log(
@@ -59,7 +61,7 @@ export const getCommandsDeploy = () => {
 
   for (const command of listCommand) {
     // Set a new item in the Collection with the key as the command name and the value as the exported module
-    if ("data" in command && "execute" in command) {
+    if ('data' in command && 'execute' in command) {
       commandsDeploy.push(command.data.toJSON());
     } else {
       console.log(

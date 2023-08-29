@@ -1,6 +1,6 @@
-import { getCommandsDeploy } from "./commands";
-import { REST, Routes } from "discord.js";
-import "dotenv/config";
+import { getCommandsDeploy } from './commands';
+import { REST, Routes } from 'discord.js';
+import 'dotenv/config';
 
 const commands = getCommandsDeploy();
 
@@ -22,7 +22,7 @@ const rest = new REST().setToken(token);
       body: commands,
     });
 
-    console.log("Type: Global commands");
+    console.log('Type: Global commands');
     console.log(
       `Successfully reloaded ${data?.length} application (/) commands.`
     );

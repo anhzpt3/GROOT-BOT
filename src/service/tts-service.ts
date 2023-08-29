@@ -1,16 +1,16 @@
-import axios from "axios";
-import fs from "fs";
-import util from "util";
+import axios from 'axios';
+import fs from 'fs';
+import util from 'util';
 
 export const getVoiceFromText = async (text: string) => {
   const request = {
     input: { text },
     // Select the language and SSML voice gender (optional)
-    voice: { languageCode: "vi-VN", name: "vi-VN-Wavenet-B" },
+    voice: { languageCode: 'vi-VN', name: 'vi-VN-Wavenet-B' },
     // select the type of audio encoding
     audioConfig: {
-      audioEncoding: "LINEAR16",
-      effectsProfileId: ["small-bluetooth-speaker-class-device"],
+      audioEncoding: 'LINEAR16',
+      effectsProfileId: ['small-bluetooth-speaker-class-device'],
       pitch: 0,
       speakingRate: 0.95,
     },
@@ -21,7 +21,7 @@ export const getVoiceFromText = async (text: string) => {
     request
   );
 
-  const folderTempPath = "./.temp/tts";
+  const folderTempPath = './.temp/tts';
   const outputFilePath = `${folderTempPath}/output.mp3`;
 
   // Create the temporary directory if it doesn't exist
@@ -31,9 +31,9 @@ export const getVoiceFromText = async (text: string) => {
   const writeFile = util.promisify(fs.writeFile);
   await writeFile(
     outputFilePath,
-    Buffer.from(res.data.audioContent, "base64"),
-    "binary"
+    Buffer.from(res.data.audioContent, 'base64'),
+    'binary'
   );
 
   return outputFilePath;
-}
+};

@@ -1,20 +1,27 @@
-import { ActivityType, Client, Events, GatewayIntentBits, VoiceState, ChannelType, bold, GuildMember } from "discord.js";
-import { initCommands } from "./commands";
-import express from "express";
-import "dotenv/config";
-import { getVoiceFromText } from "./service/tts-service";
-import { playResource } from "./service/player-service";
-import { channel } from "diagnostics_channel";
-import { joinVoiceChannel } from "@discordjs/voice";
-import { mapName, removeNumberFromEndOfString } from "./utils/common";
+import {
+  Client,
+  Events,
+  GatewayIntentBits,
+  VoiceState,
+  ChannelType,
+  GuildMember,
+} from 'discord.js';
+import { initCommands } from './commands';
+import express from 'express';
+import 'dotenv/config';
+import { getVoiceFromText } from './service/tts-service';
+import { playResource } from './service/player-service';
+import { channel } from 'diagnostics_channel';
+import { joinVoiceChannel } from '@discordjs/voice';
+import { mapName, removeNumberFromEndOfString } from './utils/common';
 
 const app = express();
 const commands = initCommands();
 
 // For testing purposes
 // tạo API gọi vào app
-app.get("/", (req, res) => {
-  res.send("<h2>Nyanz is Working!</h2>");
+app.get('/', (req, res) => {
+  res.send('<h2>Nyanz is Working!</h2>');
 });
 
 // khởi tạo app với PORT
@@ -45,12 +52,12 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
-        content: "There was an error while executing this command!",
+        content: 'There was an error while executing this command!',
         ephemeral: true,
       });
     } else {
       await interaction.reply({
-        content: "There was an error while executing this command!",
+        content: 'There was an error while executing this command!',
         ephemeral: true,
       });
     }
@@ -62,7 +69,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, (c: Client) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
-
 
   client.user.setActivity('gái');
   // Hoặc
@@ -90,7 +96,7 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     (channel) => channel.type === ChannelType.GuildVoice
   );
 
-  //kiểm tra xem bot "groot" có đang trong kênh thoại nào 
+  //kiểm tra xem bot "groot" có đang trong kênh thoại nào
   const botNotInAnyChannel = voiceChannels.every((channel) => {
     const membersInChannel = channel.members as Map<string, GuildMember>;
     // nếu member trong channel mà có id của bot --> trả về false
@@ -104,17 +110,18 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     // nếu ng dùng vào voice mà có bot ở trong
     if (botInVoiceChannel) {
       const member = newState.member;
-      let name = member.nickname || member.displayName || member.user.username
-      name = removeNumberFromEndOfString(name)
-      name = mapName(member.id) || name
+      let name = member.nickname || member.displayName || member.user.username;
+      name = removeNumberFromEndOfString(name);
+      name = mapName(member.id) || name;
 
-      const text = `chào mừng ${name}`
-      console.log(text)
-      console.log('----')
+      const text = `chào mừng ${name}`;
+      console.log(text);
+      console.log('----');
       const outputFilePath = await getVoiceFromText(text);
-      playResource(outputFilePath, botInVoiceChannel)
+      playResource(outputFilePath, botInVoiceChannel);
       //
-    } else { // nếu vào voice khác ko có bot ở trong
+    } else {
+      // nếu vào voice khác ko có bot ở trong
       // nếu bot không ở trong voice nào thì di chuyển bot vào kênh mới của người dùng
       if (botNotInAnyChannel) {
         joinVoiceChannel({
@@ -124,14 +131,14 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
         });
       } else {
         // nếu bot ở kênh không có user thì disconnect
-        disconnectBotIfNoUser(oldState)
+        disconnectBotIfNoUser(oldState);
       }
     }
   }
 
   // nếu là user thoát voice(disconnect)
   if (!newState.channel) {
-    disconnectBotIfNoUser(oldState)
+    disconnectBotIfNoUser(oldState);
   }
 });
 
@@ -141,14 +148,16 @@ const disconnectBotIfNoUser = (oldState: VoiceState) => {
   if (botInVoiceChannel?.id) {
     const membersInChannel = botInVoiceChannel.voice.channel.members;
     // Kiểm tra nếu kênh thoại chỉ còn các bot khác và không có người dùng nào
-    const onlyBotsInChannel = membersInChannel.every(member => member.user.bot);
+    const onlyBotsInChannel = membersInChannel.every(
+      (member) => member.user.bot
+    );
     if (onlyBotsInChannel) {
       // Di chuyển bot "Groot" ra khỏi kênh thoại
       botInVoiceChannel.voice.disconnect();
     }
   }
-}
+};
 
 const getGrootBotInVoiceState = (state: VoiceState) => {
   return state.channel?.members?.get(process.env.DISCORD_CLIENT_ID);
-}
+};
