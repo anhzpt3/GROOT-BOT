@@ -49,13 +49,17 @@ export const ChatGPT: CmdType = {
       let dataDone = false;
 
       const interval = setInterval(async () => {
-        if (dataDone) {
-          clearInterval(interval);
-          finalData += '\n\n :cat:';
-          await message.edit(finalData);
-        }
+        try {
+          if (dataDone) {
+            clearInterval(interval);
+            finalData += '\n\n :cat:';
+            await message.edit(finalData);
+          }
 
-        await message.edit(finalData);
+          await message.edit(finalData);
+        } catch (error) {
+          console.log('error when reply message');
+        }
       }, 1000);
 
       while (!dataDone) {
