@@ -44,6 +44,7 @@ export const mapName = (memberId: string) => {
     '747873639872856194': 'minh gầy',
     '872830927099797584': 'Thành có vợ',
     '424836030168956929': 'thành wibu',
+    '602506286126596100': ' nê du quy',
 
   }
 
