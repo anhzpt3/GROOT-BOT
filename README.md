@@ -1,2 +1,3 @@
-# hg-discord-bot-nodejs
-hg-discord-bot-nodejs
+# groot-bot
+
+groot-bot
