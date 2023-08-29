@@ -86,10 +86,15 @@ export const ChatGPT: CmdType = {
       }
     } catch (error) {
       console.log(error.name);
-      await interaction.reply({
-        content:
-          'có lỗi đã xảy ra, 1 là hết tiền API openAI rồi, 2 là t cũng đéo biết nữa',
-      });
+
+      try {
+        await interaction.reply({
+          content:
+            'có lỗi đã xảy ra, 1 là hết tiền API openAI rồi, 2 là t cũng đéo biết nữa',
+        });
+      } catch (errorReyly) {
+        console.log('error when reply: ' + errorReyly.name);
+      }
     }
   },
 };
