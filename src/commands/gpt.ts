@@ -58,7 +58,8 @@ export const ChatGPT: CmdType = {
 
           await message.edit(finalData);
         } catch (error) {
-          console.log('error when reply message');
+          console.log('error when reply message: ' + finalData);
+          clearInterval(interval);
         }
       }, 1000);
 
