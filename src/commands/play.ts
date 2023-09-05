@@ -27,15 +27,17 @@ export const Play: CmdType = {
     let searchText = interaction.options.getString('search', true);
 
     if (searchText.startsWith('https://')) {
-      searchText = getYouTubeVideoIdFromUrl(searchText);
+      const videoId = getYouTubeVideoIdFromUrl(searchText);
 
-      if (!searchText) {
+      if (!videoId) {
         await interaction.followUp({
           content: 'Không tìm thấy video nào!',
           ephemeral: true,
         });
         return;
       }
+
+      searchText = `https://youtu.be/${videoId}`;
     }
 
     const player = createAudioPlayer();
