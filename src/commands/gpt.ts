@@ -26,7 +26,7 @@ export const ChatGPT: CmdType = {
           body: JSON.stringify({
             model: 'gpt-3.5-turbo',
             temperature: 0.2,
-            max_tokens: 500,
+            max_tokens: 1100,
             messages: [
               {
                 role: 'user',
