@@ -35,20 +35,8 @@ export const removeNumberFromEndOfString = (str: string) => {
 };
 
 export const mapName = (memberId: string) => {
-  const map = {
-    '662105091893100575': 'Hoàng',
-    '593815497737240586': 'bé Khâu',
-    '335633359218671616': 'triết',
-    '709347560178974790': 'bạn đã đến với bình nguyên vô tận',
-    '580607556137779230': 'Thuỳ dương',
-    '747873639872856194': 'minh gầy',
-    '872830927099797584': 'Thành có vợ',
-    '424836030168956929': 'thành wibu',
-    '602506286126596100': ' nê du quy',
-  };
-
-  if (map[memberId]) {
-    return map[memberId];
+  if (process.env[memberId]) {
+    return process.env[memberId];
   }
 
   return undefined;
