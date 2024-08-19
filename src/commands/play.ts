@@ -7,7 +7,7 @@ import {
 } from '@discordjs/voice';
 import { createAudioPlayer } from '@discordjs/voice';
 import ytdl from '@distube/ytdl-core';
-import play, { SoundCloudStream, YouTubeStream, YouTubeVideo } from 'play-dl';
+// import play, { SoundCloudStream, YouTubeStream, YouTubeVideo } from 'play-dl';
 // import { getYouTubeVideoIdFromUrl } from '../utils/common';
 
 export const Play: CmdType = {
@@ -60,20 +60,20 @@ export const Play: CmdType = {
       // play-dl
       // let stream2: YouTubeStream | SoundCloudStream;
 
-      let yt_info: YouTubeVideo[] = await play.search(searchText, {
-        limit: 1,
-      });
-      console.log(yt_info[0].title);
-      console.log(yt_info[0].durationRaw);
-      console.log('---');
+      // let yt_info: YouTubeVideo[] = await play.search(searchText, {
+      //   limit: 1,
+      // });
+      // console.log(yt_info[0].title);
+      // console.log(yt_info[0].durationRaw);
+      // console.log('---');
 
-      if (yt_info?.length <= 0) {
-        await interaction.followUp({
-          content: 'Không tìm thấy video nào!',
-          ephemeral: true,
-        });
-        return;
-      }
+      // if (yt_info?.length <= 0) {
+      //   await interaction.followUp({
+      //     content: 'Không tìm thấy video nào!',
+      //     ephemeral: true,
+      //   });
+      //   return;
+      // }
 
       // stream2 = await play.stream(yt_info[0]?.url);
 
