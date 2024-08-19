@@ -117,8 +117,8 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       console.log(text);
       console.log('----');
 
-      // delay 200ms
-      await delay(200);
+      // delay 500ms
+      await delay(500);
 
       // if Hg --> play custom sound
       if (member.id === '662105091893100575') {
@@ -141,14 +141,11 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
 
         // if Hg --> play custom sound - testing
         if (member.id === '662105091893100575') {
-          console.log('start delay');
           await delay(500);
-          console.log('done delay');
           playResource(
-            './assets/nyaa.mp3',
+            './assets/test-sound.mp3',
             newState.channel.guild.members.cache.get('662105091893100575')
           );
-          console.log('done play');
         }
       } else {
         // nếu bot ở kênh không có user thì disconnect
