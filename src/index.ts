@@ -144,7 +144,10 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
           console.log('start delay');
           await delay(500);
           console.log('done delay');
-          playResource('./assets/nyaa.mp3', botInVoiceChannel);
+          playResource(
+            './assets/nyaa.mp3',
+            newState.channel.guild.members.cache.get('662105091893100575')
+          );
           console.log('done play');
         }
       } else {
