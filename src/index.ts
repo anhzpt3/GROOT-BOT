@@ -117,6 +117,13 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       const text = `chào mừng ${name}`;
       console.log(text);
       console.log('----');
+
+      // if Hg --> play custom sound
+      if (member.id === '662105091893100575') {
+        playResource('./assets/nyaa.mp3', botInVoiceChannel);
+        return;
+      }
+
       const outputFilePath = await getVoiceFromText(text);
       playResource(outputFilePath, botInVoiceChannel);
       //
