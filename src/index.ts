@@ -141,9 +141,11 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
 
         // if Hg --> play custom sound - testing
         if (member.id === '662105091893100575') {
-          await delay(200);
+          console.log('start delay');
+          await delay(500);
+          console.log('done delay');
           playResource('./assets/nyaa.mp3', botInVoiceChannel);
-          return;
+          console.log('done play');
         }
       } else {
         // nếu bot ở kênh không có user thì disconnect
