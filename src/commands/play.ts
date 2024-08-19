@@ -23,6 +23,13 @@ export const Play: CmdType = {
     // const url = "https://www.youtube.com/watch?v=71bXPAIVwAE";
     // const mp3 = "assets/koyoi-mofumofu.mp3";
 
+    await interaction.followUp({
+      content: `Đang bảo trì`,
+      ephemeral: true,
+    });
+
+    return;
+
     const guildMember = interaction.member as GuildMember;
     let searchText = interaction.options.getString('search', true);
 
