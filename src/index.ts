@@ -13,7 +13,7 @@ import { getVoiceFromText } from './service/tts-service';
 import { playResource } from './service/player-service';
 import { channel } from 'diagnostics_channel';
 import { joinVoiceChannel } from '@discordjs/voice';
-import { mapName, removeNumberFromEndOfString } from './utils/common';
+import { delay, mapName, removeNumberFromEndOfString } from './utils/common';
 
 const app = express();
 const commands = initCommands();
@@ -106,17 +106,19 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
   // nếu là user vào voice
   if (newState.channel?.id) {
     const botInVoiceChannel = getGrootBotInVoiceState(newState);
+    const member = newState.member;
+    let name = member.nickname || member.displayName || member.user.username;
+    name = removeNumberFromEndOfString(name);
+    name = mapName(member.id) || name;
 
     // nếu ng dùng vào voice mà có bot ở trong
     if (botInVoiceChannel) {
-      const member = newState.member;
-      let name = member.nickname || member.displayName || member.user.username;
-      name = removeNumberFromEndOfString(name);
-      name = mapName(member.id) || name;
-
       const text = `chào mừng ${name}`;
       console.log(text);
       console.log('----');
+
+      // delay 200ms
+      await delay(200);
 
       // if Hg --> play custom sound
       if (member.id === '662105091893100575') {
@@ -136,6 +138,13 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
           guildId: newState.guild.id,
           adapterCreator: newState.guild.voiceAdapterCreator,
         });
+
+        // if Hg --> play custom sound - testing
+        if (member.id === '662105091893100575') {
+          await delay(200);
+          playResource('./assets/nyaa.mp3', botInVoiceChannel);
+          return;
+        }
       } else {
         // nếu bot ở kênh không có user thì disconnect
         disconnectBotIfNoUser(oldState);
