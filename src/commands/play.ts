@@ -6,9 +6,9 @@ import {
   joinVoiceChannel,
 } from '@discordjs/voice';
 import { createAudioPlayer } from '@discordjs/voice';
-// import ytdl from "ytdl-core";
+import ytdl from '@distube/ytdl-core';
 import play, { SoundCloudStream, YouTubeStream, YouTubeVideo } from 'play-dl';
-import { getYouTubeVideoIdFromUrl } from '../utils/common';
+// import { getYouTubeVideoIdFromUrl } from '../utils/common';
 
 export const Play: CmdType = {
   data: new SlashCommandBuilder()
@@ -26,19 +26,19 @@ export const Play: CmdType = {
     const guildMember = interaction.member as GuildMember;
     let searchText = interaction.options.getString('search', true);
 
-    if (searchText.startsWith('https://')) {
-      const videoId = getYouTubeVideoIdFromUrl(searchText);
+    // if (searchText.startsWith('https://')) {
+    //   const videoId = getYouTubeVideoIdFromUrl(searchText);
 
-      if (!videoId) {
-        await interaction.followUp({
-          content: 'Không tìm thấy video nào!',
-          ephemeral: true,
-        });
-        return;
-      }
+    //   if (!videoId) {
+    //     await interaction.followUp({
+    //       content: 'Không tìm thấy video nào!',
+    //       ephemeral: true,
+    //     });
+    //     return;
+    //   }
 
-      searchText = `https://youtu.be/${videoId}`;
-    }
+    //   searchText = `https://youtu.be/${videoId}`;
+    // }
 
     const player = createAudioPlayer();
 
@@ -53,12 +53,12 @@ export const Play: CmdType = {
 
     try {
       // Disabling chunking is recommended in Discord bots
-      // const stream = ytdl(url, { filter: "audioonly", dlChunkSize: 0 });
-      // const resource = createAudioResource(stream);
-      // player.play(resource);
+      const stream = ytdl(searchText, { filter: 'audioonly', dlChunkSize: 0 });
+      const resource = createAudioResource(stream);
+      player.play(resource);
 
       // play-dl
-      let stream2: YouTubeStream | SoundCloudStream;
+      // let stream2: YouTubeStream | SoundCloudStream;
 
       let yt_info: YouTubeVideo[] = await play.search(searchText, {
         limit: 1,
@@ -75,10 +75,10 @@ export const Play: CmdType = {
         return;
       }
 
-      stream2 = await play.stream(yt_info[0]?.url);
+      // stream2 = await play.stream(yt_info[0]?.url);
 
-      const resource2 = createAudioResource(stream2.stream, {
-        inputType: stream2.type,
+      const resource2 = createAudioResource(stream, {
+        // inputType: stream2.type,
       });
       player.play(resource2);
 
