@@ -124,7 +124,7 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
         member.id === '662105091893100575' &&
         !newState.channel.guild.members.cache.get('593815497737240586')
       ) {
-        playResource('./assets/nyaa.mp3', botInVoiceChannel);
+        playResource('./assets/genshin-teleport.mp3', botInVoiceChannel);
         return;
       }
 
