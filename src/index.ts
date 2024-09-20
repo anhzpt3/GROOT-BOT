@@ -120,11 +120,8 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       await delay(500);
 
       // if Hg --> play custom sound
-      if (
-        member.id === '662105091893100575' &&
-        !newState.channel.guild.members.cache.get('593815497737240586')
-      ) {
-        playResource('./assets/genshin-teleport.mp3', botInVoiceChannel);
+      if (member.id === '662105091893100575') {
+        // playResource('./assets/genshin-teleport.mp3', botInVoiceChannel);
         return;
       }
 
@@ -143,11 +140,11 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
 
         // if Hg --> play custom sound - testing
         if (member.id === '662105091893100575') {
-          await delay(500);
-          playResource(
-            './assets/test-sound_-68vol.mp3',
-            newState.channel.guild.members.cache.get('662105091893100575')
-          );
+          // await delay(500);
+          // playResource(
+          //   './assets/test-sound_-68vol.mp3',
+          //   newState.channel.guild.members.cache.get('662105091893100575')
+          // );
         }
       } else {
         // nếu bot ở kênh không có user thì disconnect
