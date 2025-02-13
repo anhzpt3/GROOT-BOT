@@ -11,6 +11,7 @@ import { Reload } from './reload';
 import { TextToSpeech } from './tts';
 import { DisconnectCommand } from './disconnect';
 import { ChatGPT } from './gpt';
+import { Ping } from './ping';
 
 export type CmdType = {
   data:
@@ -21,7 +22,7 @@ export type CmdType = {
 
 const listCommand = [
   Play,
-  // Ping,
+  Ping,
   // Nyanz,
   ChatGPT,
   Reload,

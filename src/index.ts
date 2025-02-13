@@ -85,7 +85,7 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     return;
   }
 
-  if (oldState.member.user.bot || newState.member.user.bot) {
+  if (oldState?.member?.user?.bot || newState?.member?.user?.bot) {
     // nếu là bot
     return;
   }
