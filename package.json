@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "nodemon --exitcrash src/index.ts",
     "start:p": "node --loader ts-node/esm src/index.ts",
     "deploy": "node --loader ts-node/esm src/deploy-commands.ts"
   },
